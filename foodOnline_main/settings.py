@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -81,6 +82,8 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL='accounts.User'
+
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -117,7 +120,20 @@ STATIC_URL = '/static/'  # Ensure there's a leading slash
 STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [BASE_DIR / 'foodOnline_main' / 'static']
 
+# MEDIA_URL: The URL endpoint for media files
+MEDIA_URL = '/media/'
+
+# MEDIA_ROOT: The directory on the filesystem where uploaded files will be stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
