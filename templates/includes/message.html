@@ -1,10 +1,17 @@
 {% if messages %}
     {% for msg in messages %}
-        <div class="alert alert-{{msg.tags}} show-notification" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-           <strong>{{msg}}</strong>
+        <div class="alert alert-{{ msg.tags }} fade show" role="alert" id="autoDismissAlert-{{ forloop.counter }}">
+            <strong>{{ msg }}</strong>
         </div>
     {% endfor %}
 {% endif %}
+
+<script>
+    // Automatically dismiss each alert after 1 second
+    setTimeout(function() {
+        document.querySelectorAll('.alert').forEach(function(alert) {
+            alert.classList.remove('show'); // This triggers the fade-out
+            setTimeout(() => alert.remove(), 500); // Removes alert after fade-out
+        });
+    }, 1000); // 1-second delay
+</script>
