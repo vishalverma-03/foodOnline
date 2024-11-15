@@ -104,10 +104,10 @@
 															<div class="image-holder"> <img src="{{food.image.url}}" alt=""></div>
 															<div class="text-holder">
 																<h6>{{food.food_title}}</h6>
-																<span>{{food.food_description}}</span>
+																<span>{{food.description}}</span>
 															</div>
 															<div class="price-holder">
-																<span class="price">${{food.food_price}}</span>
+																<span class="price">${{food.price}}</span>
 																<a href="#" class="decrease_cart" style="margin-right:28px" data-id='{{food.id}}' data-url="{% url "decrease_cart" food.id %}"><i class="icon-minus3 text-color"></i></a>
 																<label id="qty-{{food.id}}">0</label>
 																<a href="#" class="add_to_cart" data-id='{{food.id}}' data-url="{% url "add_to_cart" food.id %}"><i class="icon-plus4 text-color"></i></a>
@@ -118,7 +118,7 @@
 													{% endfor %}
 												</div>
 												{% for item in cart_items %}
-												 <span id="qty-{{item.fooditem.id}}" class='item_qty' data-qty="{{item.quantity}}"> </span>
+												 <span id="qty-{{item.fooditem.id}}" class='item_qty text-hide' data-qty="{{item.quantity}}"> </span>
 												{% endfor %}
 											</div>
 										</div>					
