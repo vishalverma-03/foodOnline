@@ -35,7 +35,7 @@ $(document).ready(function(){
             type: 'GET',
             url: url,  // Use the 'url' variable instead of 'url' 
             success: function(response){
-                console.log(response);
+                // console.log(response);
                 if(response.status == 'login_required'){
                     swal(response.message,'','info').then(function(){
                         window.location='/login';
@@ -46,7 +46,7 @@ $(document).ready(function(){
                     $('#cart_counter').html(response.cart_counter['cart_count']);
                     $('#qty-'+food_id).html(response.qty);
                     totalCartAmount(response.cart_amount['subtotal'],
-                        response.cart_amount['tax'],
+                        response.cart_amount['tax_dict'],
                         response.cart_amount['grand_total']
                     )
                 }
@@ -85,9 +85,10 @@ $(document).ready(function(){
                     removeCartItem(response.qty,cart_id);
                     checkEmptyCart();
                     totalCartAmount(response.cart_amount['subtotal'],
-                        response.cart_amount['tax'],
+                        response.cart_amount['tax_dict'],
                         response.cart_amount['grand_total']
                     )
+               
                     }
                 } 
                 else {
@@ -107,7 +108,7 @@ $(document).ready(function(){
             type: 'GET',
             url: url,
             success: function(response){
-                console.log(response)
+                // console.log(response)
                 if(response.status === 'Failed'){
                     swal(response.message,'','error')
                 }  
@@ -138,11 +139,16 @@ $(document).ready(function(){
             document.getElementById("empty-cart").style.display="block";
         }
     }
-    function totalCartAmount(subtotal,tax,grand_total){
+    function totalCartAmount(subtotal,tax_dict,grand_total){
         if(window.location.pathname=='/cart/'){
             $('#subtotal').html(subtotal)
-            $('#tax').html(tax)
             $('#total').html(grand_total)
+            for( key1 in tax_dict){
+                for(key2 in tax_dict[key1]){
+                    console.log(tax_dict[key1][key2])
+                    $(`#tax-${key1}`).html(tax_dict[key1][key2])
+                }
+            }
         }
     }
 
