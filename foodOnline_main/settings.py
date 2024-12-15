@@ -163,3 +163,6 @@ GOOGLE_API_KEY='AIzaSyA4hiwl4byaNtKb5I769e3fLybUvhpxzV8'
 
 PAYPAL_CLIENT_ID='AaiOmZhgJzgl8kik8u29-Hi-fg83P4feEqrmRMOIH_zRxPhFaDdxLzPw93PyEpsnUoaad0asMpNygVJW'
 SECURE_CROSS_ORIGIN_OPENER_POLICY='same_origin_allow_popups'
+
+RZP_KEY_ID = config('RZP_KEY_ID')
+RZP_KEY_SECRET = config('RZP_KEY_SECRET')
