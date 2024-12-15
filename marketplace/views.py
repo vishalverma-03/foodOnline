@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from django.http import HttpResponse,JsonResponse
 from vendor.models import Vendor
 from menu.models import Category,FoodItem
@@ -7,6 +7,10 @@ from .models import Cart
 from vendor.models import OpeningHour
 from .context_processors import get_cart_count,get_cart_amounts
 from datetime import date,datetime
+from orders.forms import OrderForm
+from accounts.models import UserProfile
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def marketplace(request):
@@ -129,3 +133,28 @@ def delete_cart(request,cart_id):
              return JsonResponse({'status':'Faied','message':'Invalid request'})
         
                    
+@login_required(login_url='login')
+def checkout(request):
+    cart_items=Cart.objects.filter(user=request.user).order_by('created_at')
+    cart_count=cart_items.count()
+    user_profile=UserProfile.objects.get(user=request.user)
+    default_values={
+        'first_name':request.user.first_name,
+        'last_name':request.user.last_name,
+        'phone':request.user.phone_number,
+        'email':request.user.email,
+        'address': user_profile.address if user_profile else '',
+        'city': user_profile.city if user_profile else '',
+        'state': user_profile.state if user_profile else '',
+        'pin_code': user_profile.pin_code if user_profile else '',
+        'country': user_profile.country if user_profile else '',
+
+    }
+    form=OrderForm(initial=default_values)
+    if cart_count<=0:
+        return redirect('marketplace')
+    context={
+        'form':form,
+        'cart_items':cart_items
+    }
+    return render(request,'marketplace/checkout.html',context)                   

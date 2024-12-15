@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'menu',
     'marketplace',
     'customers',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,7 @@ TEMPLATES = [
                 'marketplace.context_processors.get_cart_count',
                 'marketplace.context_processors.get_cart_amounts',
                 'accounts.context_processors.get_user_profile',
+                'accounts.context_processors.get_paypal_id',
             ],
         },
     },
@@ -158,3 +160,6 @@ EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL='foodOnline Marketplace <v.verm3737@gmail.com>' 
 
 GOOGLE_API_KEY='AIzaSyA4hiwl4byaNtKb5I769e3fLybUvhpxzV8'
+
+PAYPAL_CLIENT_ID='AaiOmZhgJzgl8kik8u29-Hi-fg83P4feEqrmRMOIH_zRxPhFaDdxLzPw93PyEpsnUoaad0asMpNygVJW'
+SECURE_CROSS_ORIGIN_OPENER_POLICY='same_origin_allow_popups'
